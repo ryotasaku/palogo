@@ -40,6 +40,7 @@ const listViewBtn = document.getElementById('listView');
 const downloadSelectedBtn = document.getElementById('downloadSelected');
 const compareModeBtn = document.getElementById('compareMode');
 const exportResultsBtn = document.getElementById('exportResults');
+const shareResultsBtn = document.getElementById('shareResults');
 const votingSection = document.getElementById('votingSection');
 const votingGrid = document.getElementById('votingGrid');
 const submitVoteBtn = document.getElementById('submitVote');
@@ -226,6 +227,7 @@ function setupEventListeners() {
     downloadSelectedBtn.addEventListener('click', downloadSelectedImages);
     compareModeBtn.addEventListener('click', openComparisonModal);
     exportResultsBtn.addEventListener('click', exportResults);
+    shareResultsBtn.addEventListener('click', shareResults);
     submitVoteBtn.addEventListener('click', submitVote);
     viewResultsBtn.addEventListener('click', viewVotingResults);
     resetVotesBtn.addEventListener('click', resetVotingData);
@@ -406,6 +408,160 @@ function exportResults() {
     document.body.removeChild(link);
     
     alert('選択結果をエクスポートしました。');
+}
+
+// 結果を共有
+function shareResults() {
+    if (selectedImages.length === 0 && Object.keys(votingData).length === 0) {
+        alert('共有するデータがありません。');
+        return;
+    }
+    
+    const results = {
+        timestamp: new Date().toISOString(),
+        selectedImages: selectedImages.map(img => ({
+            filename: img.filename,
+            index: img.index + 1
+        })),
+        votingData: votingData,
+        totalVotes: Object.values(votingData).reduce((sum, votes) => sum + votes, 0)
+    };
+    
+    // 共有用のテキストを生成
+    let shareText = `📊 ロゴ選択結果\n\n`;
+    shareText += `📅 日時: ${new Date().toLocaleString('ja-JP')}\n`;
+    shareText += `✅ 選択されたロゴ: ${selectedImages.length}件\n`;
+    
+    if (selectedImages.length > 0) {
+        shareText += `\n🎯 選択されたロゴ:\n`;
+        selectedImages.forEach(img => {
+            shareText += `• ロゴ ${img.index + 1}\n`;
+        });
+    }
+    
+    if (Object.keys(votingData).length > 0) {
+        shareText += `\n🗳️ 投票結果 (総投票数: ${results.totalVotes}票):\n`;
+        const sortedResults = Object.entries(votingData)
+            .sort(([,a], [,b]) => b - a)
+            .map(([filename, votes], rank) => {
+                const index = imageFiles.indexOf(filename) + 1;
+                const medal = rank === 0 ? '🥇' : rank === 1 ? '🥈' : rank === 2 ? '🥉' : '  ';
+                return `${medal} ${rank + 1}位: ロゴ ${index} (${votes}票)`;
+            });
+        shareText += sortedResults.join('\n');
+    }
+    
+    // クリップボードにコピー
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(shareText).then(() => {
+            alert('結果をクリップボードにコピーしました！\n\nSlackやメールに貼り付けて共有してください。');
+        }).catch(() => {
+            showShareModal(shareText);
+        });
+    } else {
+        showShareModal(shareText);
+    }
+}
+
+// 共有モーダルを表示
+function showShareModal(text) {
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    `;
+    
+    const content = document.createElement('div');
+    content.style.cssText = `
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        max-width: 80%;
+        max-height: 80%;
+        overflow-y: auto;
+        position: relative;
+    `;
+    
+    const title = document.createElement('h3');
+    title.textContent = '共有用テキスト';
+    title.style.marginBottom = '20px';
+    
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.cssText = `
+        width: 100%;
+        height: 300px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        font-family: monospace;
+        font-size: 14px;
+        resize: vertical;
+    `;
+    
+    const buttons = document.createElement('div');
+    buttons.style.cssText = `
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+        justify-content: flex-end;
+    `;
+    
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = 'コピー';
+    copyBtn.style.cssText = `
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    `;
+    
+    const closeBtn = document.createElement('button');
+    closeBtn.textContent = '閉じる';
+    closeBtn.style.cssText = `
+        background: #6c757d;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    `;
+    
+    copyBtn.addEventListener('click', () => {
+        textarea.select();
+        document.execCommand('copy');
+        alert('テキストをコピーしました！');
+    });
+    
+    closeBtn.addEventListener('click', () => {
+        document.body.removeChild(modal);
+    });
+    
+    buttons.appendChild(copyBtn);
+    buttons.appendChild(closeBtn);
+    
+    content.appendChild(title);
+    content.appendChild(textarea);
+    content.appendChild(buttons);
+    modal.appendChild(content);
+    
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            document.body.removeChild(modal);
+        }
+    });
+    
+    document.body.appendChild(modal);
 }
 
 // 投票セクションを表示

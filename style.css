@@ -271,6 +271,16 @@ header p {
     transform: translateY(-2px);
 }
 
+.share-btn {
+    background: #007bff;
+    color: white;
+}
+
+.share-btn:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+}
+
 .selected-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
