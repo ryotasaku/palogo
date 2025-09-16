@@ -69,31 +69,6 @@ header p {
     color: white;
 }
 
-.selection-info {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-#selectedCount {
-    font-weight: 600;
-    color: #667eea;
-}
-
-#clearSelection {
-    padding: 8px 16px;
-    background: #ff6b6b;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-#clearSelection:hover {
-    background: #ff5252;
-    transform: translateY(-2px);
-}
 
 .image-grid {
     display: grid;
@@ -121,10 +96,6 @@ header p {
     box-shadow: 0 15px 30px rgba(0,0,0,0.2);
 }
 
-.image-item.selected {
-    border: 3px solid #667eea;
-    transform: scale(1.02);
-}
 
 .image-item img {
     width: 100%;
@@ -152,339 +123,8 @@ header p {
     color: #666;
 }
 
-.select-indicator {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 30px;
-    height: 30px;
-    background: #667eea;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: bold;
-    opacity: 0;
-    transition: all 0.3s ease;
-}
 
-.image-item.selected .select-indicator {
-    opacity: 1;
-}
 
-.selected-logos {
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
-
-.selected-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.selected-header h3 {
-    color: #333;
-    font-size: 1.5rem;
-    margin: 0;
-}
-
-.action-buttons {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.action-btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    font-size: 0.9rem;
-}
-
-.download-btn {
-    background: #28a745;
-    color: white;
-}
-
-.download-btn:hover {
-    background: #218838;
-    transform: translateY(-2px);
-}
-
-.compare-btn {
-    background: #17a2b8;
-    color: white;
-}
-
-.compare-btn:hover {
-    background: #138496;
-    transform: translateY(-2px);
-}
-
-.export-btn {
-    background: #6f42c1;
-    color: white;
-}
-
-.export-btn:hover {
-    background: #5a32a3;
-    transform: translateY(-2px);
-}
-
-.vote-btn {
-    background: #fd7e14;
-    color: white;
-}
-
-.vote-btn:hover {
-    background: #e8650e;
-    transform: translateY(-2px);
-}
-
-.results-btn {
-    background: #20c997;
-    color: white;
-}
-
-.results-btn:hover {
-    background: #1aa179;
-    transform: translateY(-2px);
-}
-
-.reset-btn {
-    background: #dc3545;
-    color: white;
-}
-
-.reset-btn:hover {
-    background: #c82333;
-    transform: translateY(-2px);
-}
-
-.share-btn {
-    background: #007bff;
-    color: white;
-}
-
-.share-btn:hover {
-    background: #0056b3;
-    transform: translateY(-2px);
-}
-
-.selected-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 15px;
-}
-
-.selected-item {
-    background: #f8f9fa;
-    border-radius: 10px;
-    padding: 10px;
-    text-align: center;
-    border: 2px solid #e9ecef;
-    transition: all 0.3s ease;
-}
-
-.selected-item:hover {
-    border-color: #667eea;
-    transform: translateY(-2px);
-}
-
-.selected-item img {
-    width: 100%;
-    height: 100px;
-    object-fit: contain;
-    margin-bottom: 10px;
-}
-
-.selected-item h4 {
-    font-size: 0.9rem;
-    color: #333;
-}
-
-.empty-state {
-    text-align: center;
-    padding: 40px;
-    color: #666;
-    font-style: italic;
-}
-
-/* 投票セクション */
-.voting-section {
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    margin-top: 30px;
-    display: none;
-}
-
-.voting-section.active {
-    display: block;
-}
-
-.voting-section h3 {
-    margin-bottom: 10px;
-    color: #333;
-    font-size: 1.5rem;
-}
-
-.voting-section p {
-    margin-bottom: 20px;
-    color: #666;
-}
-
-.voting-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-    margin-bottom: 20px;
-}
-
-.voting-item {
-    background: #f8f9fa;
-    border-radius: 10px;
-    padding: 15px;
-    text-align: center;
-    border: 2px solid #e9ecef;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.voting-item:hover {
-    border-color: #fd7e14;
-    transform: translateY(-2px);
-}
-
-.voting-item.voted {
-    border-color: #fd7e14;
-    background: #fff3cd;
-}
-
-.voting-item img {
-    width: 100%;
-    height: 150px;
-    object-fit: contain;
-    margin-bottom: 10px;
-}
-
-.voting-item h4 {
-    font-size: 1rem;
-    color: #333;
-    margin-bottom: 5px;
-}
-
-.vote-count {
-    font-size: 0.9rem;
-    color: #666;
-}
-
-.voting-actions {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-/* 比較モーダル */
-.comparison-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.8);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-}
-
-.comparison-modal.active {
-    display: flex;
-}
-
-.modal-content {
-    background: white;
-    border-radius: 15px;
-    padding: 30px;
-    max-width: 90%;
-    max-height: 90%;
-    overflow-y: auto;
-    position: relative;
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.modal-header h3 {
-    margin: 0;
-    color: #333;
-}
-
-.close-modal {
-    background: none;
-    border: none;
-    font-size: 2rem;
-    cursor: pointer;
-    color: #666;
-    padding: 0;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.close-modal:hover {
-    color: #333;
-}
-
-.comparison-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-}
-
-.comparison-item {
-    text-align: center;
-    padding: 15px;
-    border: 2px solid #e9ecef;
-    border-radius: 10px;
-    background: #f8f9fa;
-}
-
-.comparison-item img {
-    width: 100%;
-    height: 200px;
-    object-fit: contain;
-    margin-bottom: 10px;
-}
-
-.comparison-item h4 {
-    color: #333;
-    margin-bottom: 5px;
-}
-
-.comparison-item p {
-    color: #666;
-    font-size: 0.9rem;
-}
 
 /* レスポンシブデザイン */
 @media (max-width: 768px) {
@@ -505,9 +145,6 @@ header p {
         justify-content: center;
     }
     
-    .selection-info {
-        justify-content: center;
-    }
     
     .image-grid {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -518,9 +155,6 @@ header p {
         height: 150px;
     }
     
-    .selected-grid {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    }
 }
 
 @media (max-width: 480px) {
@@ -530,9 +164,5 @@ header p {
     
     .image-item img {
         height: 120px;
-    }
-    
-    .selected-grid {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     }
 }

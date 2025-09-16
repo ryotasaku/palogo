@@ -9,8 +9,8 @@
 <body>
     <div class="container">
         <header>
-            <h1>ロゴ選択ツール</h1>
-            <p>社内で使用するロゴを選択してください</p>
+            <h1>ロゴギャラリー</h1>
+            <p>ロゴをクリックして拡大表示できます</p>
         </header>
 
         <div class="controls">
@@ -18,57 +18,12 @@
                 <button id="gridView" class="active">グリッド表示</button>
                 <button id="listView">リスト表示</button>
             </div>
-            <div class="selection-info">
-                <span id="selectedCount">選択済み: 0件</span>
-                <button id="clearSelection">選択をクリア</button>
-            </div>
         </div>
 
         <div class="image-grid" id="imageGrid">
             <!-- 画像がここに動的に追加されます -->
         </div>
 
-        <div class="selected-logos" id="selectedLogos">
-            <div class="selected-header">
-                <h3>選択されたロゴ</h3>
-                <div class="action-buttons">
-                    <button id="downloadSelected" class="action-btn download-btn">選択画像をダウンロード</button>
-                    <button id="compareMode" class="action-btn compare-btn">比較モード</button>
-                    <button id="exportResults" class="action-btn export-btn">結果をエクスポート</button>
-                    <button id="shareResults" class="action-btn share-btn">結果を共有</button>
-                </div>
-            </div>
-            <div class="selected-grid" id="selectedGrid">
-                <!-- 選択された画像がここに表示されます -->
-            </div>
-        </div>
-
-        <!-- 投票機能 -->
-        <div class="voting-section" id="votingSection">
-            <h3>投票</h3>
-            <p>選択されたロゴに投票してください（複数選択可）</p>
-            <div class="voting-grid" id="votingGrid">
-                <!-- 投票用の画像がここに表示されます -->
-            </div>
-            <div class="voting-actions">
-                <button id="submitVote" class="action-btn vote-btn">投票を送信</button>
-                <button id="viewResults" class="action-btn results-btn">投票結果を見る</button>
-                <button id="resetVotes" class="action-btn reset-btn">投票をリセット</button>
-            </div>
-        </div>
-
-        <!-- 比較モーダル -->
-        <div class="comparison-modal" id="comparisonModal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>ロゴ比較</h3>
-                    <button class="close-modal" id="closeComparison">&times;</button>
-                </div>
-                <div class="comparison-grid" id="comparisonGrid">
-                    <!-- 比較用の画像がここに表示されます -->
-                </div>
-            </div>
-        </div>
     </div>
 
     <script src="script.js"></script>
